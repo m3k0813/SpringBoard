@@ -29,7 +29,10 @@ public class jdbcUserRepository implements userRepository{
         jdbcInsert.withTableName("user").usingGeneratedKeyColumns("ID");
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("user", user.getId());
+        parameters.put("id", user.getId());
+        parameters.put("uid", user.getUid());
+        parameters.put("upw", user.getPassword());
+        parameters.put("unick", user.getNickname());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         user.setId((int) key.longValue());
